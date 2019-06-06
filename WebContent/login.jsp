@@ -7,9 +7,12 @@
   display: block;
   border: 1px solid;
   padding: 10px;
-  box-shadow: 5px 10px #888888;
+  /* box-shadow: 5px 10px #888888; */
   width: 50%;
   margin-left: 25%;
+  -webkit-box-shadow: 13px 17px 44px -6px rgba(0,0,0,0.63);
+-moz-box-shadow: 13px 17px 44px -6px rgba(0,0,0,0.63);
+box-shadow: 13px 17px 44px -6px rgba(0,0,0,0.63);
 }
 </style>
 </head>
