@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import com.util.DBConnection;
 
@@ -40,25 +41,71 @@ public class Article extends HttpServlet {
 		String a = req.getParameter("field");
 		String sa = req.getParameter("subfield");
 		String t = req.getParameter("tech");
-		String st = req.getParameter("subtech");
+		String st = req.getParameter("file");
 
 		Connection con = null;
 		try {
 			con = DBConnection.getDBConnection();
 			
+//			boolean isMultipart = ServletFileUpload.isMultipartContent(req);
 			InputStream inputStream = null; // input stream of the upload file
+			
+//			if (isMultipart) {
+//				FileItemFactory factory = new DiskFileItemFactory();
+//				ServletFileUpload upload = new ServletFileUpload(factory);
+//				
+//				List<?> items = null;
+//				try {
+//					items = upload.parseRequest(req);
+//				} 
+//				catch (FileUploadException e) {
+//					e.printStackTrace();
+//				}
+//				
+//				Iterator<?> itr = items.iterator(); 
+//				
+//				while (itr.hasNext()) {
+//					FileItem item = (FileItem) itr.next();
+//					if (item.isFormField()) {
+//						String name = item.getFieldName();
+//						String value = item.getString();
+//
+//						if (name.equals("aname")) {
+//							n = value;
+//						} else if (name.equals("aid")) {
+//							i = value;
+//						} else if (name.equals("field")) {
+//							a = value;
+//						} else if (name.equals("subfield")) {
+//							sa = value;
+//						} else if (name.equals("tech")) {
+//							t = value;
+//						} else if (name.equals("subtech")) {
+//							st = value;
+//						}
+//						else if (name.equals("file")) {
+//							st = value;
+//						}
+//					}
+//					else {
+//						inputStream = item.getInputStream(); 
+//					}
+//				}
+//			}
+	        
+			
 //			// obtains the upload file part in this multipart request
-//	        Part filePart = req.getPart("file"); 
-//	        req.getParameter("file");
-//	        if (filePart != null) {
-//	            // prints out some information for debugging
-//	            System.out.println(filePart.getName());
-//	            System.out.println(filePart.getSize());
-//	            System.out.println(filePart.getContentType());
-//	             
-//	            // obtains input stream of the upload file
-//	            inputStream = filePart.getInputStream();
-//	        }
+	        Part filePart = req.getPart("file"); 
+	        req.getParameter("file");
+	        if (filePart != null) {
+	            // prints out some information for debugging
+	            System.out.println(filePart.getName());
+	            System.out.println(filePart.getSize());
+	            System.out.println(filePart.getContentType());
+	             
+	            // obtains input stream of the upload file
+	            inputStream = filePart.getInputStream();
+	        }
 
 			pst = con.prepareStatement("insert into topics values(?,?,?,?,?,?,?)");
 

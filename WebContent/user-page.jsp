@@ -6,7 +6,50 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="base.html"/>
+
 <body>
+<!-- The Modal -->
+<div id="articleModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p id="articleText"></p>
+  </div>
+
+</div>
+
+<script>
+
+//When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  // Get the modal
+  var modal = document.getElementById("articleModal");
+  
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+function openArticle(value) {
+	// Get the modal
+	var modal = document.getElementById("articleModal");
+	modal.style.display = "block";
+	
+	var text = document.getElementById("articleText");
+	text.innerHTML = document.getElementById(value).innerHTML;
+	
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+	
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	  modal.style.display = "none";
+	}
+}
+</script>
+
+
 <div class="content">
 	 <% if(request.getAttribute("Error") != null) { %>
 	 	<h4 style="color:red"><%=request.getAttribute("Error") %></h4>
@@ -30,6 +73,7 @@
 					PreparedStatement pst = con.prepareStatement("select Aid, Areaname, Tid, Stid, Articles from topics where Aid is not null");
 					ResultSet rt = pst.executeQuery();
 					
+					int id = 0;
 					while(rt.next()) {
 						 out.print(String.format("<tr>" +
 	                             "<td>%s</td>" +
@@ -38,7 +82,10 @@
 	                             "<td>%s</td>" +
 	                             "<td>%s</td>" +
 	                         "</tr>",
-	                         rt.getString(1), rt.getString(2), rt.getString(3), rt.getString(4), rt.getString(5) == null ? "" : rt.getString(5)));
+	                         rt.getString(1), rt.getString(2), rt.getString(3), rt.getString(4), rt.getString(5) == null ? "" : "<a href='#' onClick='javascript:openArticle(\"article_" + id + "\")'>View</a>"));
+						 
+						 out.print(String.format("<div id='%s' style='display:none' >%s</div>", "article_" + id,  rt.getString(5) == null ? "" : rt.getString(5)));
+						 id++;
 					
 					}
 					

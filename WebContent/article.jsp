@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<h4 style="color: red"><%=request.getAttribute("Error") %></h4>
 	<% } %>
 	<h3>Article Addition Form</h3>
-	<form id="form1" name="form1" method="post" action="article">
+	<form id="form1" name="form1" method="post" action="article" enctype="multipart/form-data">
 		<label>Article Name: <input type="text" name="aname" />
 		<label>Article Id: <input type="text" name="aid" />
 		</label>
