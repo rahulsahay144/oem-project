@@ -6,17 +6,18 @@
 .logoutblock {
   display: block;
   text-align: center;
-  margin-top: 7%;
+  margin-top: 15%;
   font-size: 1.3em;
 }
 </style>
 </head>
 <body>
+<div class="content">
 	 <div class="logoutblock">
 	 	 <b>You have logged out successfully</b>
 	 	 <br/>
 	     <b>Return to Login page? <a href="login.jsp">Click here</a></b>
 	 </div>
-	
+	</div>
 </body>
 </html>

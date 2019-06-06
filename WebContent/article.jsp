@@ -13,6 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <jsp:include page="base.html" />
 
 <body>
+<div class="content">
 	<div style="float: right">
 		<span>Welcome Administrator</span>
 	</div>
@@ -161,5 +162,6 @@ pst.close();
 			value="Cancel">
 	</form>
 	<a href="admin.html">&lt;&nbsp;Back</a>
+	</div>
 </body>
 </html>

@@ -7,6 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="base.html"/>
 <body>
+<div class="content">
 	 <% if(request.getAttribute("Error") != null) { %>
 	 	<h4 style="color:red"><%=request.getAttribute("Error") %></h4>
 	 <% } %>
@@ -127,5 +128,6 @@
 		</table>
 	</div>
 	<a href="user.html">&lt;Back</a>
+	</div>
 </body>
 </html>

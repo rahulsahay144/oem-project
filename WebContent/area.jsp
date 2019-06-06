@@ -3,6 +3,7 @@
 <jsp:include page="base.html"/>
 
 <body>
+	<div class="content">
  	<div style="float:right"><span>Welcome Administrator</span></div>
  	 <% if(request.getAttribute("Error") != null) { %>
 	 	<h4 style="color:red"><%=request.getAttribute("Error") %></h4>
@@ -30,5 +31,6 @@
 		</p>
 	</form>
 	<a href="admin.html">&lt;&nbsp;Back</a>
+	</div>
 </body>
 </html>

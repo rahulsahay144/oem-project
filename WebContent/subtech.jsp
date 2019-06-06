@@ -28,6 +28,7 @@ pst.close();
 <jsp:include page="base.html" />
 
 <body>
+<div class="content">
 	<div style="float:right"><span>Welcome Administrator</span></div>
  	 <% if(request.getAttribute("Error") != null) { %>
 	 	<h4 style="color:red"><%=request.getAttribute("Error") %></h4>
@@ -64,5 +65,6 @@ pst.close();
 				type="reset" name="Submit2" value="Cancel" />
 		</p>
 		<a href="admin.html">&lt;&nbsp;Back</a>
+		</form>
 </body>
 </html>

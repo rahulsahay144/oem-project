@@ -15,6 +15,7 @@
 </head>
 
 <body>
+<div class="content">
 	 <% if(request.getAttribute("Error") != null) { %>
 	 	<h4 style="color:red"><%=request.getAttribute("Error") %></h4>
 	 <% } %>
@@ -49,6 +50,6 @@
 			<a href="regis.jsp">New User? Sign Up</a>
 		</form>
 	</div>
-	
+	</div>
 </body>
 </html>

@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <jsp:include page="base.html"/>
 <body>
+<div class="content">
 	 <% if(request.getAttribute("Error") != null) { %>
 	 	<h4 style="color:red"><%=request.getAttribute("Error") %></h4>
 	 <% } %>
@@ -56,10 +57,10 @@
 				<input name="Submit" type="submit" value="Submit" />
 				<input type="reset" name="Submit2" value="Reset" />
 			</div>
-			<br /> 
 			<a href="login.jsp">&lt;Back to Login</a>
+			<br /> 
 		</form>
 	</div>
-	
+	</div>
 </body>
 </html>

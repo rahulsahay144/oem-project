@@ -38,6 +38,7 @@ con.close();
 %>
 
 <body>
+<div class="content">
 	 <% if(request.getAttribute("Error") != null) { %>
 	 	<h4 style="color:red"><%=request.getAttribute("Error") %></h4>
 	 <% } %>
@@ -77,6 +78,7 @@ con.close();
 			<br /> 
 			<a href="operator.html">&lt;Back</a>
 		</form>
+	</div>
 	</div>
 	
 </body>
