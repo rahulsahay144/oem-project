@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.util.DBConnection;
 
 public class Subtech extends HttpServlet {
 
@@ -23,7 +26,7 @@ public class Subtech extends HttpServlet {
 		res.setContentType("text/html");
 		PrintWriter out = res.getWriter();
 		HttpSession ses = req.getSession();
-		Connection con = (Connection) ses.getAttribute("con");
+		Connection con = DBConnection.getDBConnection();
 		RequestDispatcher rd = null;
 		String n = req.getParameter("name");
 		String id = req.getParameter("id");
@@ -49,7 +52,22 @@ public class Subtech extends HttpServlet {
 				rd.include(req, res);
 				out.println(" Sub-Technologies are Succesfully Added.");
 
-			} catch (Exception e) {
+			} 
+			catch (SQLException e) {
+				e.printStackTrace();
+				
+				req.setAttribute("Error", "An Error has occured!");
+				rd = req.getRequestDispatcher("Sub-tech.jsp");
+				rd.include(req, res);
+				return;
+			}
+			finally {
+				if(con != null) {
+					try {
+						con.close();
+					}
+					catch(SQLException e) {}
+				}
 			}
 		}
 	}

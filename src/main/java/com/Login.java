@@ -3,7 +3,6 @@ package com;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.util.DBConnection;
 
 public class Login extends HttpServlet {
 
@@ -36,30 +37,25 @@ public class Login extends HttpServlet {
 
 		RequestDispatcher rd = null;
 		if (n == "" || p == "") {
-			out.println("Password Or User Name can't be empty");
-			rd = req.getRequestDispatcher("index.html");
+			//out.println("Password Or User Name can't be empty");
+			req.setAttribute("Error", "User Name and/or Password cannot be empty!");
+			rd = req.getRequestDispatcher("login.jsp");
 			rd.include(req, res);
 
-		} else {
+		} 
+		else {
+			req.removeAttribute("Error");
+			
 			Connection con = null;
 			PreparedStatement pstm = null;
 			ResultSet rt = null;
+			
+			HttpSession session = req.getSession(true);
+			session.setAttribute("uname", n.trim());
+			session.setAttribute("role", r);
 
 			try {
-				Class.forName("com.mysql.jdbc.Driver");
-
-			} catch (Exception e) {
-				System.out.println("class not found");
-			}
-
-			try {
-				con = DriverManager.getConnection("jdbc:mysql://test.cgwmmjmwc33x.us-east-1.rds.amazonaws.com:3306/oem", "admin", "admin1234");
-			} catch (SQLException e) {
-				out.println("Error Inyour URL");
-				e.printStackTrace();
-			}
-
-			try {
+				con = DBConnection.getDBConnection();
 				pstm = con.prepareStatement("select * from login where uname=? and password=? and role=?");
 
 				pstm.setString(1, n);
@@ -71,22 +67,34 @@ public class Login extends HttpServlet {
 				if (rt.next() == true) {
 					HttpSession ses = req.getSession(true);
 					ses.setAttribute("con", con);
+					
+					ses.setAttribute("uname", n);
+					ses.setAttribute("role", r);
+					
 					if (r.equals("0")) {
-
 						rd = req.getRequestDispatcher("admin.html");
 						rd.forward(req, res);
-					} else {
-
+					} 
+					else if (r.equals("1")) {
 						rd = req.getRequestDispatcher("user.html");
 						rd.forward(req, res);
-
+			
+					}
+					else if (r.equals("2")) {
+						rd = req.getRequestDispatcher("operator.html");
+						rd.forward(req, res);
+			
+					}
+					else if (r.equals("3")) {
+						rd = req.getRequestDispatcher("se.html");
+						rd.forward(req, res);
 					}
 
 				} else {
-					out.print(" UserName Or Password Invalid");
-					rd = req.getRequestDispatcher("index.html");
-
+					req.setAttribute("Error", "Invalid Username or Password!");
+					rd = req.getRequestDispatcher("login.jsp");
 					rd.include(req, res);
+					return;
 
 				}
 
@@ -95,6 +103,19 @@ public class Login extends HttpServlet {
 
 			} catch (SQLException e) {
 				e.printStackTrace();
+				
+				req.setAttribute("Error", "Invalid Username or Password!");
+				rd = req.getRequestDispatcher("login.jsp");
+				rd.include(req, res);
+				return;
+			}
+			finally {
+				if(con != null) {
+					try {
+						con.close();
+					}
+					catch(SQLException e) {}
+				}
 			}
 		}
 

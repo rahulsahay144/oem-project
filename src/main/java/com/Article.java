@@ -1,18 +1,24 @@
 package com;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.util.DBConnection;
+
+@MultipartConfig(maxFileSize = 16177215)    // upload file's size up to 16MB
 public class Article extends HttpServlet {
 	
 	
@@ -30,38 +36,63 @@ public class Article extends HttpServlet {
 		PreparedStatement pst = null;
 		ResultSet rt = null;
 		String n = req.getParameter("aname");
+		String i = req.getParameter("aid");
 		String a = req.getParameter("field");
 		String sa = req.getParameter("subfield");
 		String t = req.getParameter("tech");
 		String st = req.getParameter("subtech");
 
+		Connection con = null;
 		try {
+			con = DBConnection.getDBConnection();
+			
+			InputStream inputStream = null; // input stream of the upload file
+//			// obtains the upload file part in this multipart request
+//	        Part filePart = req.getPart("file"); 
+//	        req.getParameter("file");
+//	        if (filePart != null) {
+//	            // prints out some information for debugging
+//	            System.out.println(filePart.getName());
+//	            System.out.println(filePart.getSize());
+//	            System.out.println(filePart.getContentType());
+//	             
+//	            // obtains input stream of the upload file
+//	            inputStream = filePart.getInputStream();
+//	        }
 
-			Connection con = (Connection) ses.getAttribute("con");
-
-			FileInputStream fin = new FileInputStream(req.getParameter("file"));
-
-			int s = fin.available();
-
-			byte b[] = new byte[s];
-			fin.read(b);
-			pst = con.prepareStatement(" insert into topics  values(?,?,?,?,?,?) ");
+			pst = con.prepareStatement("insert into topics values(?,?,?,?,?,?,?)");
 
 			pst.setString(1, n);
-			pst.setString(2, a);
-			pst.setString(3, sa);
-			pst.setString(4, t);
-			pst.setString(5, st);
-			pst.setBytes(6, b);
+			pst.setString(2, i);
+			pst.setString(3, a);
+			pst.setString(4, sa);
+			pst.setString(5, t);
+			pst.setString(6, st);
+			pst.setBlob(7, inputStream);
 
 			pst.executeUpdate();
 			pst.close();
 
-		} catch (Exception e) {
-			out.println("asddas" + e.toString());
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+			req.setAttribute("Error", "An Error has Occured. Please try again later!");
+			RequestDispatcher rd = req.getRequestDispatcher("article.jsp");
+			rd.include(req, res);
+			return;
+		}
+		finally {
+			if(con != null) {
+				try {
+					con.close();
+				}
+				catch(SQLException e) {}
+			}
 		}
 
-		out.println("asddas");
+		out.println("Article loaded Successfully !");
+		RequestDispatcher rd = req.getRequestDispatcher("article.jsp");
+		rd.include(req, res);
 
 	}
 

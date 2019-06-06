@@ -4,13 +4,12 @@
 <%@ page import="java.sql.ResultSet"%>
 <%@ page import="javax.servlet.http.HttpSession"%>
 <%@ page import="com.util.DBConnection"%>
-
 <%
 HttpSession ses=request.getSession();
 
-Connection con=DBConnection.getDBConnection();
+Connection con= DBConnection.getDBConnection();
 ArrayList arr=new ArrayList();
-PreparedStatement pst=con.prepareStatement("select SubAreaId from subfield");
+PreparedStatement pst=con.prepareStatement("select Techid from tech");
 ResultSet rt = pst.executeQuery();
 int c=0;
 while(rt.next())
@@ -33,17 +32,17 @@ pst.close();
  	 <% if(request.getAttribute("Error") != null) { %>
 	 	<h4 style="color:red"><%=request.getAttribute("Error") %></h4>
 	 <% } %>
-	<h3>New Technology Addition</h3>
-	<form id="form1" name="form1" method="post" action="tech">
-		<label> Technology Name: <input name="name" type="text"
+	<h3>New Sub-Technology Addition</h3>
+	<form id="form1" name="form1" method="post" action="subtech">
+		<label> Sub-Technology Name: <input name="name" type="text"
 			id="name" maxlength="25" value="" />
 		</label>
 		<p>
-			<label>Technology ID: <input name="id" type="text" id="id"
+			<label>Sub-Technology ID: <input name="id" type="text" id="id"
 				maxlength="25" value="" />
 			</label>
 		<p>
-			<label>Sub-Area ID: <select name="subarea">
+			<label>Technology ID: <select name="Technology">
 					<% int i=0;
 	while(i<c){
 	  %>
@@ -51,12 +50,12 @@ pst.close();
 
 					<%
     i++;
-    }  %>
+    } %>
 			</select>
 			</label>
 		</p>
 
-		<label>Technology Desc: <input name="desc" type="text"
+		<label>Sub-Technology Desc: <input name="desc" type="text"
 			id="desc" maxlength="5000" value="" />
 		</label> <br>
 		</p>

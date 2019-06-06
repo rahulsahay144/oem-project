@@ -3,7 +3,6 @@ package com;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.util.DBConnection;
 
 public class Regis extends HttpServlet {
 
@@ -29,44 +30,45 @@ public class Regis extends HttpServlet {
 
 		String s1 = req.getParameter("firstname");
 		String s2 = req.getParameter("lastname");
-		String s3 = req.getParameter("id");
+		String s3 = req.getParameter("username");
 		String s4 = req.getParameter("password");
 		String s5 = req.getParameter("date_birth");
 		String s6 = req.getParameter("address");
 		String s7 = req.getParameter("contactno");
-		String s8 = req.getParameter("Ageofuser");
 		String s9 = req.getParameter("role");
+		String s10 = req.getParameter("gender");
 
 		RequestDispatcher rd = null;
 
-		if (s1 == "" || s2 == "" || s3 == "" || s4 == "" || s5 == "" || s6 == "" || s7 == "" || s8 == "" || s9 == "") {
-			rd = req.getRequestDispatcher("regis.html");
+		if (s1 == "" || s2 == "" || s3 == "" || s4 == "" || s5 == "" || s6 == "" || s7 == "" || s9 == "") {
+			//out.println("All Text boxes are Mandatary");
+			req.setAttribute("Error", "All Text boxes are Mandatory!");
+			rd = req.getRequestDispatcher("regis.jsp");
 			rd.include(req, res);
-			out.println("All Text boxes are Mandatary");
 		} 
 		else {
 			Connection con = null;
 			PreparedStatement pstm = null;
-			ResultSet rt = null;
-
 			try {
-				Class.forName("com.mysql.jdbc.Driver");
+				con = DBConnection.getDBConnection();
+				
+				// Check Existing User
+				pstm = con.prepareStatement("select * from login where uname=? and role=?");
 
-			} catch (Exception e) {
-				System.out.println("class not found");
-			}
+				pstm.setString(1, s3);
+				pstm.setString(2, s9);
 
-			try {
-
-				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/crms", "root", "root");
-
-			} catch (SQLException e) {
-				System.out.println("Error InyourURL");
-			}
-
-			System.out.println("class loaded.........");
-			try {
-				pstm = con.prepareStatement("insert into user values(?,?,?,?,?,?,?,?,?)");
+				ResultSet rt = pstm.executeQuery();
+				System.out.println("Cheking Exiting Username....");
+				if (rt.next() == true) {
+					System.out.println("User already exists...");
+					req.setAttribute("Error", "Username is already in use. Please choose different username");
+					rd = req.getRequestDispatcher("regis.jsp");
+					rd.include(req, res);
+					return;
+				}
+				
+				pstm = con.prepareStatement("insert into user values(?,?,?,?,?,?,?,?)");
 
 				System.out.println("query created...");
 				pstm.setString(1, s1);
@@ -77,8 +79,7 @@ public class Regis extends HttpServlet {
 				pstm.setString(5, s5);
 				pstm.setString(6, s6);
 				pstm.setString(7, s7);
-				pstm.setString(8, s8);
-				pstm.setString(9, s9);
+				pstm.setString(8, s10);
 
 				pstm.executeUpdate();
 				System.out.print("query Fired");
@@ -100,12 +101,26 @@ public class Regis extends HttpServlet {
 
 				pstm.close();
 				con.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
+			} 
+			catch (SQLException e) {
+				e.printStackTrace();
+				
+				req.setAttribute("Error", "An Error has occured!");
+				rd = req.getRequestDispatcher("regis.jsp");
+				rd.include(req, res);
+				return;
+			}
+			finally {
+				if(con != null) {
+					try {
+						con.close();
+					}
+					catch(SQLException e) {}
+				}
 			}
 
 			out.println("User Successfully Registered");
-			rd = req.getRequestDispatcher("index.html");
+			rd = req.getRequestDispatcher("regis.jsp");
 			rd.include(req, res);
 
 		}

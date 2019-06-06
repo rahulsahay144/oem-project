@@ -2,7 +2,7 @@
     <wb-module deploy-name="oem-project">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-        <property name="context-root" value="oem-project"/>
         <property name="java-output-path" value="/oem-project/build/classes"/>
+        <property name="context-root" value="oem"/>
     </wb-module>
 </project-modules>
