@@ -41,7 +41,7 @@ public class Article extends HttpServlet {
 		String a = req.getParameter("field");
 		String sa = req.getParameter("subfield");
 		String t = req.getParameter("tech");
-		String st = req.getParameter("file");
+		String st = req.getParameter("subtech");
 
 		Connection con = null;
 		try {
