@@ -54,7 +54,7 @@ public class Subarea extends HttpServlet {
 
 				rd = req.getRequestDispatcher("admin.html");
 				rd.include(req, res);
-				out.println(" Sub-Field Succesfully Added.");
+				out.println("<script>alert('Sub-Area Succesfully Added.');</script>");
 
 			} 
 			catch (SQLException e) {

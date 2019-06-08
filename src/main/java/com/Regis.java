@@ -119,7 +119,7 @@ public class Regis extends HttpServlet {
 				}
 			}
 
-			out.println("User Successfully Registered");
+			out.println("<script>alert('User Successfully Registered');</script>");
 			rd = req.getRequestDispatcher("regis.jsp");
 			rd.include(req, res);
 

@@ -92,7 +92,7 @@ public class Product extends HttpServlet {
 				}
 			}
 
-			out.println("Product Successfully Registered");
+			out.println("<script>alert('Product Successfully Registered');</script>");
 			rd = req.getRequestDispatcher("pr-regis.jsp");
 			rd.include(req, res);
 

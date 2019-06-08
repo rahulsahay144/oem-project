@@ -16,13 +16,13 @@
 		<h3>Product Details</h3>
 		<table width="59%" border="1">
 		    <thead>
-		    <tr>
-		        <td><b>User Id</b></td>
-		        <td><b>Product Id</b></td>
-		        <td><b>Product Name</b></td>
-		        <td><b>Price</b></td>
-		        <td><b>Date of Purchase</b></td>
-		        <td><b>Warranty Date</b></td>
+		    <tr class="table_header">
+		        <th><b>User Id</b></th>
+		        <th><b>Product Id</b></th>
+		        <th><b>Product Name</b></th>
+		        <th><b>Price</b></th>
+		        <th><b>Date of Purchase</b></th>
+		        <th><b>Warranty Date</b></th>
 		    </tr>
 		    </thead>
 		    <tbody>

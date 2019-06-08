@@ -47,6 +47,28 @@ function openArticle(value) {
 	  modal.style.display = "none";
 	}
 }
+
+function searchFunction() {
+	  // Declare variables 
+	  var input, filter, table, tr, td, i, txtValue;
+	  input = document.getElementById("searchInput");
+	  filter = input.value.toUpperCase();
+	  table = document.getElementById("articleTable");
+	  tr = table.getElementsByTagName("tr");
+
+	  // Loop through all table rows, and hide those who don't match the search query
+	  for (i = 0; i < tr.length; i++) {
+	    td = tr[i].getElementsByTagName("td")[0];
+	    if (td) {
+	      txtValue = td.textContent || td.innerText;
+	      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+	        tr[i].style.display = "";
+	      } else {
+	        tr[i].style.display = "none";
+	      }
+	    } 
+	  }
+	}
 </script>
 
 
@@ -54,17 +76,18 @@ function openArticle(value) {
 	 <% if(request.getAttribute("Error") != null) { %>
 	 	<h4 style="color:red"><%=request.getAttribute("Error") %></h4>
 	 <% } %>
-	 <div style="float:right"><span>Welcome User</span></div>
+	 <div style="float:right"><span>Welcome User | <a href="logout">Sign-out</a></span></div>
 	<div>
 		<h3>Articles</h3>
-		<table width="59%" border="1">
+		<input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search for articles.."/>
+		<table width="59%" border="1" id="articleTable">
 		    <thead>
-		    <tr>
-		        <td><b>Article Id</b></td>
-		        <td><b>Article Name</b></td>
-		        <td><b>Technology</b></td>
-		        <td><b>Sub-Technology</b></td>
-		        <td><b>Detail</b></td>
+		    <tr class="table_header">
+		        <th><b>Article Id</b></th>
+		        <th><b>Article Name</b></th>
+		        <th><b>Technology</b></th>
+		        <th><b>Sub-Technology</b></th>
+		        <th><b>Detail</b></th>
 		    </tr>
 		    </thead>
 		    <tbody>
@@ -101,12 +124,12 @@ function openArticle(value) {
 		<h3>My Products</h3>
 		<table width="59%" border="1">
 		    <thead>
-		    <tr>
-		        <td><b>Product Id</b></td>
-		        <td><b>Product Name</b></td>
-		        <td><b>Price</b></td>
-		        <td><b>Date of Purchase</b></td>
-		        <td><b>Warranty Date</b></td>
+		    <tr class="table_header">
+		        <th><b>Product Id</b></th>
+		        <th><b>Product Name</b></th>
+		        <th><b>Price</b></th>
+		        <th><b>Date of Purchase</b></th>
+		        <th><b>Warranty Date</b></th>
 		    </tr>
 		    </thead>
 		    <tbody>
@@ -139,13 +162,13 @@ function openArticle(value) {
 		<h3>My Compliants</h3>
 		<table width="59%" border="1">
 		    <thead>
-		    <tr>
-		        <td><b>Compliant Id</b></td>
-		        <td><b>Product Id</b></td>
-		        <td><b>Description</b></td>
-		        <td><b>Date/Time</b></td>
-		        <td><b>Status</b></td>
-		        <td><b>Service Engineer</b></td>
+		    <tr class="table_header">
+		        <th><b>Compliant Id</b></th>
+		        <th><b>Product Id</b></th>
+		        <th><b>Description</b></th>
+		        <th><b>Date/Time</b></th>
+		        <th><b>Status</b></th>
+		        <th><b>Service Engineer</b></th>
 		    </tr>
 		    </thead>
 		    <tbody>

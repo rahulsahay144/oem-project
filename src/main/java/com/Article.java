@@ -137,7 +137,7 @@ public class Article extends HttpServlet {
 			}
 		}
 
-		out.println("Article loaded Successfully !");
+		out.println("<script>alert('Article loaded Successfully !');</script>");
 		RequestDispatcher rd = req.getRequestDispatcher("article.jsp");
 		rd.include(req, res);
 

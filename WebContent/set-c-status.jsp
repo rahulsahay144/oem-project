@@ -27,7 +27,7 @@ con.close();
 	 <% if(request.getAttribute("Error") != null) { %>
 	 	<h4 style="color:red"><%=request.getAttribute("Error") %></h4>
 	 <% } %>
-	 <div style="float:right"><span>Welcome Service Engineer</span></div>
+	 <div style="float:right"><span>Welcome Service Engineer | <a href="logout">Sign-out</a></span></div>
 	<div class="loginblock">
 		<h3>Set Complaint Status</h3>
 		<form id="form1" name="form1" method="post" action="setcstatus" >

@@ -28,7 +28,7 @@ con.close();
 %>
 <body>
 <div class="content">
- 	<div style="float:right"><span>Welcome User</span></div>
+ 	<div style="float:right"><span>Welcome User | <a href="logout">Sign-out</a></span></div>
  	 <% if(request.getAttribute("Error") != null) { %>
 	 	<h4 style="color:red"><%=request.getAttribute("Error") %></h4>
 	 <% } %>

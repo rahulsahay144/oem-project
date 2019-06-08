@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 <div class="content">
 	<div style="float: right">
-		<span>Welcome Administrator</span>
+		<span>Welcome Administrator | <a href="logout">Sign-out</a></span>
 	</div>
 	<% if(request.getAttribute("Error") != null) { %>
 	<h4 style="color: red"><%=request.getAttribute("Error") %></h4>

@@ -32,7 +32,7 @@ con.close();
 	 <% if(request.getAttribute("Error") != null) { %>
 	 	<h4 style="color:red"><%=request.getAttribute("Error") %></h4>
 	 <% } %>
-	 <div style="float:right"><span>Welcome Operator</span></div>
+	 <div style="float:right"><span>Welcome Operator | <a href="logout">Sign-out</a></span></div>
 	<div class="loginblock">
 		<h3>New Product Registration</h3>
 		<form id="form1" name="form1" method="post" action="product" >

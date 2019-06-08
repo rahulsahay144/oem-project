@@ -53,7 +53,7 @@ public class Tech extends HttpServlet {
 
 				rd = req.getRequestDispatcher("admin.html");
 				rd.include(req, res);
-				out.println(" Technologies are Succesfully Added.");
+				out.println("<script>alert('Technologies are Succesfully Added.');</script>");
 
 			} 
 			catch (SQLException e) {

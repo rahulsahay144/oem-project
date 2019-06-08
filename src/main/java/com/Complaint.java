@@ -91,7 +91,7 @@ public class Complaint extends HttpServlet {
 				}
 			}
 
-			out.println("Complaint Successfully Posted");
+			out.println("<script>alert('Complaint Successfully Posted');</script>");
 			rd = req.getRequestDispatcher("complaint.jsp");
 			rd.include(req, res);
 

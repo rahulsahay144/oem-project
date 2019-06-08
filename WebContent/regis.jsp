@@ -36,7 +36,7 @@
 			<span> 
 				<select name="role">
 						<option value="0">Administrator</option>
-						<option value="1">Registered User</option>
+						<option value="1">User</option>
 						<option value="2">Operator</option>
 						<option value="3">Service Engineer</option>
 				</select>

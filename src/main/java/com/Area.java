@@ -53,7 +53,7 @@ public class Area extends HttpServlet {
 
 				rd = req.getRequestDispatcher("admin.html");
 				rd.include(req, res);
-				out.println("Area Succesfully Added.");
+				out.println("<script>alert('Area Succesfully Added.');</script>");
 
 			} 
 			catch (Exception e) {

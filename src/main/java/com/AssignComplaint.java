@@ -81,7 +81,7 @@ public class AssignComplaint extends HttpServlet {
 				}
 			}
 
-			out.println("Complaint Successfully Assigned");
+			out.println("<script>alert('Complaint Successfully Assigned');</script>");
 			rd = req.getRequestDispatcher("c-detail.jsp");
 			rd.include(req, res);
 

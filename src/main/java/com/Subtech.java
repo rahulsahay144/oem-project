@@ -50,7 +50,7 @@ public class Subtech extends HttpServlet {
 
 				rd = req.getRequestDispatcher("admin.html");
 				rd.include(req, res);
-				out.println(" Sub-Technologies are Succesfully Added.");
+				out.println("<script>alert('Sub-Technologies are Succesfully Added.');</script>");
 
 			} 
 			catch (SQLException e) {

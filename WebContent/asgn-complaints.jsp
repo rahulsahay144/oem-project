@@ -11,18 +11,18 @@
 	 <% if(request.getAttribute("Error") != null) { %>
 	 	<h4 style="color:red"><%=request.getAttribute("Error") %></h4>
 	 <% } %>
-	 <div style="float:right"><span>Welcome Service Engineer</span></div>
+	 <div style="float:right"><span>Welcome Service Engineer | <a href="logout">Sign-out</a></span></div>
 	<div class="loginblock">
 		<h3>Assigned Complaints </h3>
 		<table width="59%" border="1">
 		    <thead>
-		     <tr>
-		        <td><b>Compliant Id</b></td>
-		        <td><b>Customer Id</b></td>
-		        <td><b>Product Id</b></td>
-		        <td><b>Description</b></td>
-		        <td><b>Date/Time</b></td>
-		        <td><b>Status</b></td>
+		     <tr class="table_header">
+		        <th><b>Compliant Id</b></th>
+		        <th><b>Customer Id</b></th>
+		        <th><b>Product Id</b></th>
+		        <th><b>Description</b></th>
+		        <th><b>Date/Time</b></th>
+		        <th><b>Status</b></th>
 		    </tr>
 		    </thead>
 		    <tbody>
