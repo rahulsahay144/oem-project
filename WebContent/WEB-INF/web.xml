@@ -109,4 +109,13 @@
     <url-pattern>/setcstatus</url-pattern>
   </servlet-mapping>
   
+  
+   <servlet>
+    <servlet-name>deletearticle</servlet-name>
+    <servlet-class>com.DeleteArticle</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deletearticle</servlet-name>
+    <url-pattern>/deletearticle</url-pattern>
+  </servlet-mapping>
 </web-app>
